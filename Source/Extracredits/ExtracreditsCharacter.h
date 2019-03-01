@@ -2,7 +2,9 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Extracredits.h"
+#include "Entities/Interaction/InteractActor.h"
+
 #include "GameFramework/Character.h"
 #include "ExtracreditsCharacter.generated.h"
 
@@ -29,6 +31,12 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseLookUpRate;
 
+	// All the players that are in range for interaction.
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Interaction")
+	TArray<AInteractActor *> InteractsInRange;
+
+	UFUNCTION(BlueprintCallable)
+	void InteractNearest();
 protected:
 
 	/** Resets HMD orientation in VR. */

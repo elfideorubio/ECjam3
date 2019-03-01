@@ -57,6 +57,8 @@ void AExtracreditsCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &AExtracreditsCharacter::InteractNearest);
+
 	PlayerInputComponent->BindAxis("MoveForward", this, &AExtracreditsCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AExtracreditsCharacter::MoveRight);
 
@@ -76,6 +78,14 @@ void AExtracreditsCharacter::SetupPlayerInputComponent(class UInputComponent* Pl
 	PlayerInputComponent->BindAction("ResetVR", IE_Pressed, this, &AExtracreditsCharacter::OnResetVR);
 }
 
+void AExtracreditsCharacter::InteractNearest()
+{
+	for (AInteractActor * actor : InteractsInRange) {
+		actor->OnInteractStart(this);
+
+		return;
+	}
+}
 
 void AExtracreditsCharacter::OnResetVR()
 {
