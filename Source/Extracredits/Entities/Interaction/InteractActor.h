@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Extracredits.h"
+#include "Entities/Minigame/MinigameActor.h"
 #include "Entities/Interaction/InteractableActor.h"
 #include "Components/BoxComponent.h"
 
@@ -28,6 +29,10 @@ public:
 	// Can we interact with the entity?
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
 	bool canInteract = true;
+
+	// The minigame we want to initialise
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
+	AMinigameActor * Minigame;
 
 	// [Actor, Description] Objects that will be affected by the interaction. 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Interaction")
