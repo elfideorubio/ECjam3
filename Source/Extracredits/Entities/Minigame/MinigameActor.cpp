@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MinigameActor.h"
+#include "Entities/Interaction/InteractActor.h"
 #include "ExtracreditsCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -10,6 +11,9 @@ AMinigameActor::AMinigameActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	// Create our scene
+	RootScene = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 
 	// Create a camera boom (pulls in towards the player if there is a collision)
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
@@ -50,7 +54,7 @@ void AMinigameActor::Tick(float DeltaTime)
 
 }
 
-void AMinigameActor::start(APawn * player) {
+void AMinigameActor::start(APawn * player, AActor * initialiser) {
 	AController * controller = player->GetController();
 	controller->Possess(this);
 
@@ -59,7 +63,7 @@ void AMinigameActor::start(APawn * player) {
 		return;
 	}
 
-	OnMinigameStart(player);
+	OnMinigameStart(player, initialiser);
 
 	FVector loc = character->FollowCamera->GetComponentLocation();
 	FRotator rot = character->FollowCamera->GetComponentRotation();
@@ -69,3 +73,24 @@ void AMinigameActor::start(APawn * player) {
 	isTweeningCamera = true;
 }
 
+void AMinigameActor::finish(APawn * player, bool success, AActor * initialiser) {
+	AController * controller = this->GetController();
+	controller->Possess(player);
+
+	AInteractActor * interact = Cast<AInteractActor>(initialiser);
+	if (!interact) {
+		return;
+	}
+
+	interact->OnMinigameFinish(player, success, this);
+	OnMinigameFinish(player, success, initialiser);
+}
+
+void AMinigameActor::OnMinigameStart_Implementation(APawn * player, AActor * initialiser) {
+	initPlayer = player;
+	initActor = initialiser;
+}
+
+void AMinigameActor::OnMinigameFinish_Implementation(APawn * player, bool success, AActor * initialiser) {
+
+}

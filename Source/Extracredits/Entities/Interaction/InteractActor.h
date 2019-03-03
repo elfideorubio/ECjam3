@@ -65,6 +65,9 @@ public:
 	void OnInteractStart_Implementation(AActor * actor);
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Interaction")
+	void OnMinigameFinish(AActor * player, bool success, AMinigameActor * game);
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Interaction")
 	void OnInteractFinish(AActor * player, bool success);
 
 	UFUNCTION(BlueprintCallable, Category = "Interaction")
