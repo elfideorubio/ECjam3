@@ -10,7 +10,7 @@ AInteractActor::AInteractActor()
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Create our scene
-	RootScene = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	//RootScene = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 
 	// Create our box component.
 	InteractionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("InteractionRange"));
@@ -30,7 +30,7 @@ void AInteractActor::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-// Called once an actor enters the range of the 
+// Called once an actor enters the range of the
 void AInteractActor::OnActorEnter(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult) {
 	// Try to convert the actor to a player character
 	AExtracreditsCharacter * player = Cast<AExtracreditsCharacter>(OtherActor);
@@ -42,7 +42,7 @@ void AInteractActor::OnActorEnter(UPrimitiveComponent* OverlappedComp, AActor* O
 	OnEnterRange(OtherActor);
 }
 
-// Called once an actor enters the range of the 
+// Called once an actor enters the range of the
 void AInteractActor::OnActorExit(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex) {
 	// Try to convert the actor to a player character
 	AExtracreditsCharacter * player = Cast<AExtracreditsCharacter>(OtherActor);
@@ -54,7 +54,7 @@ void AInteractActor::OnActorExit(UPrimitiveComponent* OverlappedComp, AActor* Ot
 	OnExitRange(OtherActor);
 }
 
-// Called once an actor enters the range of the 
+// Called once an actor enters the range of the
 void AInteractActor::OnEnterRange_Implementation(AActor* actor) {
 	// Try to convert the actor to a player character
 	AExtracreditsCharacter * player = Cast<AExtracreditsCharacter>(actor);
@@ -67,7 +67,7 @@ void AInteractActor::OnEnterRange_Implementation(AActor* actor) {
 	}
 }
 
-// Called once an actor enters the range of the 
+// Called once an actor enters the range of the
 void AInteractActor::OnExitRange_Implementation(AActor* actor) {
 	// Try to convert the actor to a player character
 	AExtracreditsCharacter * player = Cast<AExtracreditsCharacter>(actor);
@@ -80,7 +80,7 @@ void AInteractActor::OnExitRange_Implementation(AActor* actor) {
 	}
 }
 
-// Called once an actor enters the range of the 
+// Called once an actor enters the range of the
 void AInteractActor::OnInteractStart_Implementation(AActor* actor) {
 	// Default, finish with success
 	FinishInteraction(actor, true);
